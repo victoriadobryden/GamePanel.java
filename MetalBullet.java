@@ -3,7 +3,7 @@
 
 import java.awt.*;
 
-public class Bullet {
+public class MetalBullet implements IBullet {
 	
 // Fields
  	
@@ -20,7 +20,7 @@ public class Bullet {
 	
 	
 // Constructor 
-   public Bullet (double angle, int x, int y )
+   public MetalBullet(double angle, int x, int y )
    {
 	
 	this.x = x ;
@@ -38,12 +38,12 @@ public class Bullet {
  //Functions
     public double getx() {return x ;}
 	public double gety() {return y; }
-	public double getr() {return r ;}   
- 
+	public double getr() {return r ;}
+
  public boolean update(){
 	 x += dx ;
 	 y += dy ;
-	 
+
 	 if (x < -r || x > GamePanel.WIDTH + r
 	  || y < -r || y > GamePanel.HEIGHT + r ){
 		  return true ;
@@ -51,10 +51,10 @@ public class Bullet {
 	  return false ;
  }
  public void draw (Graphics2D g){
-	 
+
 	 g.setColor (color1);
 	 g.fillOval((int) (x - r) , (int) (y - r) , 2 * r , 2 * r );
   }
-	
-	
+
+
 }

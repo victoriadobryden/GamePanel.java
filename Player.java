@@ -1,6 +1,5 @@
 
 import java.awt.*;
-
    public class Player  {
 // Fields
 	 private int x ;
@@ -143,44 +142,32 @@ import java.awt.*;
 		   long elapsed = (System.nanoTime()-firingTimer ) / 1000000 ;
 		   if (elapsed > firingDelay ){
 			   firingTimer = System.nanoTime();
-
+               int[][] coords = {};
               if (powerLevel < 2 ){
-                    GamePanel.bullets.add (new Bullet (270 , x , y));
+                  coords = new int[][]{ {270, 0, 0}};
+
                 }
                else if (powerLevel < 3 ) {
-                    GamePanel.bullets.add (new Bullet (270 , x + 5, y));
-                    GamePanel.bullets.add (new Bullet (270 , x - 5, y));
+                   coords = new int[][]{{270, 5, 0}, {270, -5, 0}};
                 }
                 else if (powerLevel < 4) {
-                    GamePanel.bullets.add (new Bullet (270 , x ,   y));
-                    GamePanel.bullets.add (new Bullet (275 , x + 5, y));
-                    GamePanel.bullets.add (new Bullet (265 , x - 5, y));
+                  coords = new int[][]{{270, 0, 0}, {270, 5, 0}, {265, -5, 0}};
 
                 }
 				else if (powerLevel < 5) {
-                    GamePanel.bullets.add (new Bullet (270 , x ,   y));
-                    GamePanel.bullets.add (new Bullet (275 , x + 5, y));
-                    GamePanel.bullets.add (new Bullet (265 , x - 5, y));
-                    GamePanel.bullets.add (new Bullet (260 , x - 7, y));
+                  coords = new int[][]{{270, 0, 0}, {275, 5, 0}, {265, -5, 0}, {260, -7, 0}};
 					
 				}
 				else if (powerLevel < 6) {
-                    GamePanel.bullets.add (new Bullet (270 , x ,   y));
-                    GamePanel.bullets.add (new Bullet (275 , x + 5, y));
-                    GamePanel.bullets.add (new Bullet (265 , x - 5, y));
-                    GamePanel.bullets.add (new Bullet (260 , x - 10, y));
-					GamePanel.bullets.add (new Bullet (255 , x +10 , y));
+                  coords = new int[][]{{270, 0, 0}, {270, 5, 0}, {265, -5, 0}, {260, -10, 0}, {255, 10, 0}};
+
 				}
-				else  {
-                    GamePanel.bullets.add (new Bullet (270 , x ,   y));
-                    GamePanel.bullets.add (new Bullet (275 , x + 5, y));
-                    GamePanel.bullets.add (new Bullet (265 , x - 5, y));
-                    GamePanel.bullets.add (new Bullet (260 , x - 10, y));
-					GamePanel.bullets.add (new Bullet (255 , x + 10, y));
-					GamePanel.bullets.add (new Bullet (250 , x - 14, y));
-					GamePanel.bullets.add (new Bullet (250 , x + 14, y));
-				}
-               
+				else {
+				    coords = new int[][] {{270, 0, 0}, {275, 5, 0}, {265, -5, 0}, {260, -10, 0}, {255, 10, 0}, {250, -14, 0}, {250, 14, 0}};
+                }
+               for (int i = 0; i < coords.length; i++) {
+                   GamePanel.bullets.add(GamePanel.bulletFactory.createBullet(coords[i][0], x + coords[i][1], y + coords[i][2]));
+               }
 			   
 		   }
 	   }

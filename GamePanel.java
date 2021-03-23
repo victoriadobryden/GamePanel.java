@@ -19,7 +19,8 @@ import java.util.*;
 	 private int FBS = 45;
 	 private double averageFBS ;
 	 public static Player player ;
-	 
+	 public static BulletFactory bulletFactory;
+
 	 private long waveStartTimer;
 	 private long waveStartTimerDiff;
 	 private int waveNumber;
@@ -30,7 +31,7 @@ import java.util.*;
 	 private long slowDownTimerDiff;
 	 private int slowDownLength = 6000 ;
 	 
-	 public static ArrayList <Bullet> bullets ;
+	 public static ArrayList <IBullet> bullets ;
 	 public static ArrayList <Enemy> enemies;
      public static ArrayList <PowerUp> powerups;
      public static ArrayList <Explosion> explosions;
@@ -67,7 +68,8 @@ import java.util.*;
 	                      RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 	 
 	  player = new Player ();
-	  bullets = new ArrayList <Bullet>();
+	  bulletFactory = new LowWaveFactory();
+	  bullets = new ArrayList <IBullet>();
 	  enemies = new ArrayList<Enemy>();
 	  powerups = new ArrayList <PowerUp>();
       explosions = new ArrayList <Explosion>();
@@ -177,7 +179,10 @@ import java.util.*;
 			waveNumber++;
 			waveStart = false;
 			waveStartTimer = System.nanoTime();
-		}	
+		}
+        if (waveNumber >= 2) {
+        	bulletFactory = new HighWaveFactory();
+		}
 		if (waveNumber == 16){
 			Running = false;
 		}
@@ -243,7 +248,7 @@ import java.util.*;
 	   
 	   // bullet-enemy collisoin
 	   for ( int i = 0; i < bullets.size(); i++){
-		   Bullet b = bullets.get(i);
+		   IBullet b = bullets.get(i);
 		   double bx = b.getx();
 		   double by = b.gety();
 		   double br = b.getr();
